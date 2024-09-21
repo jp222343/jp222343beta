@@ -68,10 +68,10 @@ export default function RootLayout({
     const data: { text: string; completed: boolean }[] = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key) { // Verifica se key não é null
-        const value = localStorage.getItem(key); // Agora é seguro
+      if (key) {
+        const value = localStorage.getItem(key);
         if (value !== null) {
-          data.push({ text: key, completed: value === 'true' }); // Salva como booleano
+          data.push({ text: key, completed: JSON.parse(value) }); // Aqui você usa JSON.parse
         }
       }
     }
