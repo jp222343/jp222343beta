@@ -65,12 +65,12 @@ export default function RootLayout({
   };
 
   const downloadLocalStorage = () => {
-    const data = [];
+    const data: { text: string; completed: boolean }[] = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      const value = localStorage.getItem(key) ?? ""; // Garante que value não seja null
+      const value = localStorage.getItem(key) ?? "";
       if (key) {
-        data.push({ text: key, completed: JSON.parse(value) }); // Adapte conforme necessário
+        data.push({ text: key, completed: value === 'true' }); // Salva como booleano
       }
     }
     const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
@@ -93,16 +93,11 @@ export default function RootLayout({
       const reader = new FileReader();
       reader.onload = (e) => {
         try {
-          const result = e.target?.result;
-          if (typeof result === 'string') {
-            const jsonData = JSON.parse(result);
-            jsonData.forEach((item: { text: string; completed: boolean }) => {
-              localStorage.setItem(item.text, JSON.stringify(item.completed)); // Armazena o completed como string
-            });
-            alert("Dados carregados com sucesso!");
-          } else {
-            throw new Error("Resultado não é uma string");
+          const jsonData: { text: string; completed: boolean }[] = JSON.parse(e.target?.result as string);
+          for (const item of jsonData) {
+            localStorage.setItem(item.text, item.completed.toString()); // Armazena como string
           }
+          alert("Dados carregados com sucesso!");
         } catch (error) {
           alert("Erro ao carregar os dados. Verifique o formato do arquivo.");
         }
@@ -111,6 +106,7 @@ export default function RootLayout({
     }
     setShowStorageMenu(false);
   };
+  
   
 
   const toggleMenu = () => {
