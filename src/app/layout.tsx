@@ -84,11 +84,16 @@ export default function RootLayout({
       const reader = new FileReader();
       reader.onload = (e) => {
         try {
-          const jsonData = JSON.parse(e.target?.result as string);
-          for (const [key, value] of Object.entries(jsonData)) {
-            localStorage.setItem(key, value);
+          const result = e.target?.result;
+          if (typeof result === 'string') {
+            const jsonData = JSON.parse(result);
+            for (const [key, value] of Object.entries(jsonData)) {
+              localStorage.setItem(key, JSON.stringify(value)); // Converte o value para string
+            }
+            alert("Dados carregados com sucesso!");
+          } else {
+            throw new Error("Resultado não é uma string");
           }
-          alert("Dados carregados com sucesso!");
         } catch (error) {
           alert("Erro ao carregar os dados. Verifique o formato do arquivo.");
         }
@@ -97,6 +102,7 @@ export default function RootLayout({
     }
     setShowStorageMenu(false);
   };
+  
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
