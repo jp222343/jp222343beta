@@ -65,8 +65,15 @@ export default function RootLayout({
   };
 
   const downloadLocalStorage = () => {
-    const data = JSON.stringify(localStorage);
-    const blob = new Blob([data], { type: 'application/json' });
+    const data = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      const value = localStorage.getItem(key) ?? ""; // Garante que value não seja null
+      if (key) {
+        data.push({ text: key, completed: JSON.parse(value) }); // Adapte conforme necessário
+      }
+    }
+    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -77,6 +84,8 @@ export default function RootLayout({
     URL.revokeObjectURL(url);
     setShowStorageMenu(false);
   };
+  
+  
 
   const uploadLocalStorage = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -87,9 +96,9 @@ export default function RootLayout({
           const result = e.target?.result;
           if (typeof result === 'string') {
             const jsonData = JSON.parse(result);
-            for (const [key, value] of Object.entries(jsonData)) {
-              localStorage.setItem(key, JSON.stringify(value)); // Converte o value para string
-            }
+            jsonData.forEach((item: { text: string; completed: boolean }) => {
+              localStorage.setItem(item.text, JSON.stringify(item.completed)); // Armazena o completed como string
+            });
             alert("Dados carregados com sucesso!");
           } else {
             throw new Error("Resultado não é uma string");
