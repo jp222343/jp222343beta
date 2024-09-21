@@ -16,15 +16,15 @@ const BioPage = () => {
 
           <article className="text-base sm:text-lg leading-relaxed space-y-4 sm:space-y-6">
             <p>
-              Sou um desenvolvedor de software com pequenos 4 anos de experiência em desenvolvimento. Gosto de criar (e recriar) algumas tecnologias utilizando linguagens como <strong>React</strong>, <strong>Next.js</strong>, <strong>Node.js</strong>, <strong>JavaScript</strong>, <strong>Lua</strong>, <strong>Python</strong>, e <strong>HTML/CSS (Tailwind incluso)</strong>. Sempre busco novas formas de melhorar a eficiência 
+              Sou um desenvolvedor de software com pequenos 4 anos de experiência em desenvolvimento. Comecei este hobby programando em Lua, em algumas engines de video-games. Gosto de criar (e recriar) algumas tecnologias utilizando linguagens como <strong>React</strong> <strong>(Next.js)</strong>, <strong>Node.js</strong>, <strong>JavaScript</strong>, <strong>Lua</strong>, <strong>Python</strong>, e <strong>HTML/CSS (Tailwind incluso)</strong>. Sempre busco novas formas de melhorar a eficiência 
               dos projetos e a experiência do usuário.
             </p>
             <p>
-              Em meus momentos livres, exploro novas tecnologias como
-              frameworks emergentes.
+              Em meus momentos livres, exploro novas coisas como
+              frameworks.
             </p>
             <p>
-              Enquanto não estou utilizando meus dispositivos (Computador e celular), Pratico hábitos como estudos frequentes e leitura, especialmente sobre tópicos científicos e tecnologia, ciências (Humanas), ler/escrever, astronomia, diversos tópicos de exatas, e linguagens! Essas atividades me ajudam a manter uma rotina estável (Porém cansativa), mas sei que não são em vão.
+              Enquanto não estou utilizando meus dispositivos (Computador e celular), Pratico hábitos como estudos frequentes e leitura, especialmente sobre tópicos científicos e tecnologia, ciências (Humanas), ler/escrever, astronomia, diversos tópicos de exatas, e linguagens! Essas atividades me ajudam a manter uma rotina estável (Porém cansativa).
             </p>
           </article>
 

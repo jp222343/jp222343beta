@@ -11,8 +11,6 @@ const Header = () => {
         <h1 className="text-4xl font-bold mb-4">jp222343: Um pouco sobre mim</h1>
         <p className="text-lg leading-relaxed mb-6">
           Sou um desenvolvedor hobbista, ou melhor dizendo, apenas um programador entediado.
-          <br /><br />
-          <FaCoffee className="m-auto flex justify-center content-center" />
         </p>
         <hr className="border-t border-gray-400 opacity-50 my-6" />
         <div className="text-center sm:text-left grid gap-6 sm:grid-cols-2">
@@ -21,6 +19,8 @@ const Header = () => {
             <p className="text-gray-400">
               Recentemente eu venho ampliando habilidades em alguns frameworks, enquanto aprendia a utilizar novos, como o Next.JS, por exemplo.
             </p>
+            <br /> <br />
+            <Link href="/applications" className="bg-azure text-white py-2 sm:py-3 px-4 sm:px-6 rounded-full font-semibold shadow-md hover:bg-blue-500 transition-all duration-300">Ver Aplicativos</Link>
           </div>
           <div className="text-center sm:text-left bg-gray-800 p-4 rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold mb-2">Exploração de Novas Tecnologias</h2>
@@ -39,7 +39,7 @@ const Header = () => {
             <p className="text-gray-400">
               Além da tecnologia, tenho interesse em outros tópicos, sendo eles: Ciências (Humanas), ler/escrever, astronomia, diversos tópicos de exatas, e linguagens!
               <br /><br />
-              <Link href="/bio" className="bg-azure text-white py-2 sm:py-3 px-4 sm:px-6 rounded-full font-semibold shadow-md hover:bg-blue-500 transition-all duration-300">Acessar a biografia</Link>
+              <Link href="/bio" className="bg-azure text-white py-2 sm:py-3 px-4 sm:px-6 rounded-full font-semibold shadow-md hover:bg-blue-500 transition-all duration-300">Ver biografia</Link>
             </p>
           </div>
         </div>
