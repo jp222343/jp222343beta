@@ -68,8 +68,8 @@ export default function RootLayout({
     const data: { text: string; completed: boolean }[] = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      const value = localStorage.getItem(key) ?? "";
-      if (key) {
+      const value = localStorage.getItem(key);
+      if (key && value !== null) {
         data.push({ text: key, completed: value === 'true' }); // Salva como booleano
       }
     }
@@ -84,6 +84,7 @@ export default function RootLayout({
     URL.revokeObjectURL(url);
     setShowStorageMenu(false);
   };
+  
   
   
 
