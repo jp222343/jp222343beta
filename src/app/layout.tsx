@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { FaGithub, FaServer, FaBars, FaTimes, FaDownload, FaUpload } from "react-icons/fa"; // Importar o ícone de upload
+import { FaGithub, FaServer, FaBars, FaTimes, FaTrash, FaTrashAlt } from "react-icons/fa"; // Importar ícones de remoção
 import Breadcrumb from '../../components/Breadcrumb';
 import { metadata } from './metadata';
 
@@ -28,7 +28,7 @@ export default function RootLayout({
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
-  const fileInputRef = useRef<HTMLInputElement | null>(null); // Ref para o input de arquivo
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -63,55 +63,6 @@ export default function RootLayout({
     alert(`Item "${key}" foi removido!`);
     setShowStorageMenu(false);
   };
-
-  const downloadLocalStorage = () => {
-    const data: { text: string; completed: boolean }[] = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key) {
-        const value = localStorage.getItem(key);
-        if (value !== null) {
-          data.push({ text: key, completed: JSON.parse(value) }); // Aqui você usa JSON.parse
-        }
-      }
-    }
-    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'local_storage_data.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    setShowStorageMenu(false);
-  };
-  
-  
-  
-  
-
-  const uploadLocalStorage = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const jsonData: { text: string; completed: boolean }[] = JSON.parse(e.target?.result as string);
-          for (const item of jsonData) {
-            localStorage.setItem(item.text, item.completed.toString()); // Armazena como string
-          }
-          alert("Dados carregados com sucesso!");
-        } catch (error) {
-          alert("Erro ao carregar os dados. Verifique o formato do arquivo.");
-        }
-      };
-      reader.readAsText(file);
-    }
-    setShowStorageMenu(false);
-  };
-  
-  
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -181,7 +132,6 @@ export default function RootLayout({
           )}
         </header>
 
-        {/* Indicador de Navegação (Breadcrumbs) */}
         <Breadcrumb />
 
         {showStorageMenu && (
@@ -192,9 +142,10 @@ export default function RootLayout({
               <div className="space-y-4">
                 <button 
                   onClick={clearLocalStorage} 
-                  className="block w-full text-left text-red-500 hover:bg-gray-700 py-2 rounded transition duration-200 ease-in-out"
+                  className="flex items-center space-x-2 block w-full text-left text-red-500 hover:bg-gray-700 py-2 rounded transition duration-200 ease-in-out"
                 >
-                  Limpar Todos os Dados
+                  <FaTrash className="text-xl" />
+                  <span>Limpar Todos os Dados</span>
                 </button>
                 
                 <div>
@@ -209,32 +160,10 @@ export default function RootLayout({
                       const key = (document.getElementById('itemKey') as HTMLInputElement).value;
                       deleteSpecificItem(key);
                     }} 
-                    className="block w-full text-left text-yellow-500 hover:bg-gray-700 py-2 rounded mt-2 transition duration-200 ease-in-out"
+                    className="flex items-center space-x-2 block w-full text-left text-yellow-500 hover:bg-gray-700 py-2 rounded mt-2 transition duration-200 ease-in-out"
                   >
-                    Remover Item Específico
-                  </button>
-                </div>
-                <div>
-                  <input 
-                    type="file" 
-                    accept=".json" 
-                    ref={fileInputRef}
-                    onChange={uploadLocalStorage} 
-                    className="hidden"
-                  />
-                  <button 
-                  onClick={downloadLocalStorage} 
-                  className="flex items-center space-x-2 text-lg text-green-500 hover:bg-gray-700 py-2 rounded transition duration-200 ease-in-out w-full"
-                >
-                  <FaDownload className="text-xl" />
-                  <span>Baixar Meus Dados</span>
-                </button>
-                  <button 
-                    onClick={() => fileInputRef.current?.click()} 
-                    className="flex items-center space-x-2 text-lg text-blue-500 hover:bg-gray-700 py-2 rounded transition duration-200 ease-in-out w-full"
-                  >
-                    <FaUpload className="text-xl" />
-                    <span>Carregar Dados</span>
+                    <FaTrashAlt className="text-xl" />
+                    <span>Remover Item Específico</span>
                   </button>
                 </div>
               </div>
